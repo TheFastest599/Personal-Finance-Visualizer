@@ -142,8 +142,6 @@ export default function BudgetManager() {
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
 
-    console.log(transactions);
-
     const monthlyTransactions = transactions.filter(transaction => {
       const transactionDate = new Date(transaction.date);
       return (
@@ -153,8 +151,6 @@ export default function BudgetManager() {
         (transaction.type === 'expense' || !transaction.type) // Include existing data without type field
       );
     });
-
-    console.log(monthlyTransactions);
 
     const totalSpent = monthlyTransactions.reduce(
       (sum, transaction) => sum + Math.abs(transaction.amount),

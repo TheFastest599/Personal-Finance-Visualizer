@@ -2,6 +2,8 @@
 
 A modern personal finance tracking application built with Next.js, MongoDB, Zustand, and shadcn/ui. Track your income, expenses, budgets, and get insights into your financial habits.
 
+🔗 **Live Demo**: [https://finance-visualize.vercel.app](https://finance-visualize.vercel.app)
+
 ## ✨ Features
 
 - **Transaction Management**: Add, edit, delete transactions with income/expense filtering and color-coding
