@@ -314,7 +314,7 @@ export default function Home() {
                     ))}
                   </div>
                   <p className="text-slate-600 dark:text-slate-300 mb-4 italic">
-                    "{testimonial.content}"
+                    &ldquo;{testimonial.content}&rdquo;
                   </p>
                   <div>
                     <p className="font-semibold text-slate-900 dark:text-white">
