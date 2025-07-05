@@ -1,36 +1,166 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Personal Finance Visualizer
+
+A modern, beautiful personal finance tracking application built with Next.js, React, and Tailwind CSS. Track your income, expenses, budgets, and get insights into your financial habits with interactive charts and visualizations.
+
+## Features
+
+✨ **Transaction Management**
+
+- Add, edit, and delete transactions
+- Categorize income and expenses
+- View detailed transaction history
+
+📊 **Data Visualization**
+
+- Monthly expenses trend charts
+- Category-wise spending pie charts
+- Budget vs actual comparison charts
+- Interactive dashboard with key metrics
+
+💰 **Budget Management**
+
+- Set monthly budgets by category
+- Track budget progress with visual indicators
+- Get alerts when approaching budget limits
+
+🔍 **Financial Insights**
+
+- Smart spending insights and recommendations
+- Identify top spending categories
+- Track financial health metrics
+
+🎨 **Modern UI/UX**
+
+- Clean, responsive design
+- Dark mode support
+- Beautiful charts powered by Recharts
+- Accessible components using shadcn/ui
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: JavaScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui + Radix UI
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **Data Storage**: LocalStorage (with MongoDB integration ready)
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   ```bash
+   git clone <repository-url>
+   cd personal-finance-app
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js app router pages
+│   ├── dashboard/         # Dashboard page
+│   ├── transactions/      # Transactions management
+│   ├── analytics/         # Financial analytics
+│   ├── budgets/          # Budget management
+│   └── layout.js         # Root layout with context providers
+├── components/           # Reusable React components
+│   ├── ui/              # shadcn/ui base components
+│   ├── Navigation.jsx   # App navigation
+│   ├── TransactionForm.jsx
+│   ├── TransactionList.jsx
+│   ├── DashboardSummary.jsx
+│   ├── MonthlyExpensesChart.jsx
+│   ├── CategoryPieChart.jsx
+│   ├── BudgetManager.jsx
+│   └── SpendingInsights.jsx
+├── contexts/            # React context providers
+│   └── DataContext.jsx  # App state management
+└── lib/
+    └── utils.js         # Utility functions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Available Scripts
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features in Detail
 
-## Learn More
+### Dashboard
 
-To learn more about Next.js, take a look at the following resources:
+- Overview of financial health
+- Key metrics and summaries
+- Recent transactions
+- Monthly spending trends
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Transactions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Add new income/expense transactions
+- Edit existing transactions
+- Filter and search transactions
+- Category-based organization
 
-## Deploy on Vercel
+### Analytics
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Detailed spending insights
+- Monthly expense trends
+- Category breakdowns
+- Financial health metrics
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Budget Management
+
+- Set monthly budgets by category
+- Visual progress tracking
+- Budget vs actual comparisons
+- Overspending alerts
+
+## Customization
+
+The app uses a clean design system that can be easily customized:
+
+- **Colors**: Modify the color scheme in `tailwind.config.js`
+- **Components**: All UI components are in `src/components/ui/`
+- **Categories**: Update transaction categories in `src/contexts/DataContext.jsx`
+- **Charts**: Customize chart styles in individual chart components
+
+## Data Storage
+
+Currently uses browser LocalStorage for data persistence. The app is designed to easily integrate with MongoDB or other databases by updating the DataContext.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- UI components from [shadcn/ui](https://ui.shadcn.com/)
+- Charts powered by [Recharts](https://recharts.org/)
+- Icons from [Lucide React](https://lucide.dev/)
