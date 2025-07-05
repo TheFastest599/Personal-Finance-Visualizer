@@ -118,7 +118,7 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className=" fixed bottom-0 left-0 right-0 bg-background z-20 shadow-lg">
+          <div className=" fixed bottom-0 left-0 right-0 bg-background z-20 shadow-lg pt-4">
             <div className="px-4 py-2 space-y-1">
               {navigation.map(item => {
                 const Icon = item.icon;

@@ -245,31 +245,34 @@ export default function SpendingInsights() {
     switch (type) {
       case 'danger':
         return {
-          bg: 'bg-red-50',
-          border: 'border-red-200',
-          text: 'text-red-800',
-          badge: 'bg-red-100 text-red-800',
+          bg: 'bg-red-50 dark:bg-red-950/50',
+          border: 'border-red-200 dark:border-red-800',
+          text: 'text-red-800 dark:text-red-200',
+          badge: 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200',
         };
       case 'warning':
         return {
-          bg: 'bg-yellow-50',
-          border: 'border-yellow-200',
-          text: 'text-yellow-800',
-          badge: 'bg-yellow-100 text-yellow-800',
+          bg: 'bg-yellow-50 dark:bg-yellow-950/50',
+          border: 'border-yellow-200 dark:border-yellow-800',
+          text: 'text-yellow-800 dark:text-yellow-200',
+          badge:
+            'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200',
         };
       case 'positive':
         return {
-          bg: 'bg-green-50',
-          border: 'border-green-200',
-          text: 'text-green-800',
-          badge: 'bg-green-100 text-green-800',
+          bg: 'bg-green-50 dark:bg-green-950/50',
+          border: 'border-green-200 dark:border-green-800',
+          text: 'text-green-800 dark:text-green-200',
+          badge:
+            'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200',
         };
       default:
         return {
-          bg: 'bg-blue-50',
-          border: 'border-blue-200',
-          text: 'text-blue-800',
-          badge: 'bg-blue-100 text-blue-800',
+          bg: 'bg-blue-50 dark:bg-blue-950/50',
+          border: 'border-blue-200 dark:border-blue-800',
+          text: 'text-blue-800 dark:text-blue-200',
+          badge:
+            'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200',
         };
     }
   };
