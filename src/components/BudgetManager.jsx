@@ -309,14 +309,14 @@ export default function BudgetManager() {
       </CardHeader>
       <CardContent>
         {budgets.length === 0 ? (
-          <div className="text-center py-8">
+          <div className="text-center py-8 max-h-screen overflow-y-auto">
             <p className="text-gray-500 mb-4">No budgets created yet.</p>
             <p className="text-sm text-gray-400">
               Click "Add Budget" to create your first budget.
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 max-h-96 overflow-y-auto">
             {budgets.map(budget => {
               const progress = getBudgetProgress(budget);
               const progressColor = getProgressColor(progress.percentage);
@@ -353,7 +353,7 @@ export default function BudgetManager() {
                       <span>Spent: {formatCurrency(progress.spent)}</span>
                       <span>Budget: {formatCurrency(budget.amount)}</span>
                     </div>
-                    <Progress value={progress.percentage} className="h-2" />
+                    <Progress value={progress.percentage} />
                     <div className="flex justify-between text-xs text-gray-500">
                       <span>{progress.percentage.toFixed(1)}% used</span>
                       <span>

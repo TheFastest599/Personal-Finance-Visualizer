@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { ModeToggle } from '@/components/mode-toggle';
 import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
@@ -82,6 +83,10 @@ export default function Navigation() {
             })}
           </div>
         </div>
+
+        <div className="flex items-center gap-2">
+          <ModeToggle />
+        </div>
       </nav>
 
       {/* Mobile Navigation */}
@@ -94,23 +99,26 @@ export default function Navigation() {
             <span className="text-lg font-bold">FinanceTracker</span>
           </Link>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="h-10 w-10"
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-          </Button>
+          <div className="flex items-center gap-2">
+            <ModeToggle />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="h-10 w-10"
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className=" fixed bottom-0 left-0 right-0 bg-background z-20">
+          <div className=" fixed bottom-0 left-0 right-0 bg-background z-20 shadow-lg">
             <div className="px-4 py-2 space-y-1">
               {navigation.map(item => {
                 const Icon = item.icon;

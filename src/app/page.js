@@ -26,7 +26,7 @@ export default function Home() {
       icon: BarChart3,
       route: '/dashboard',
       color: 'text-blue-600',
-      bgColor: 'bg-blue-600 hover:bg-blue-700',
+      bgColor: '',
     },
     {
       title: 'Transactions',

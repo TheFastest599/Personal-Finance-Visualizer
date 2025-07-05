@@ -1,15 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import {
   Card,
   CardContent,
@@ -17,13 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import useFinanceStore from '@/store/useFinanceStore';
 import {
-  formatCurrency,
-  getMonthName,
-  getMonthlyData,
-  calculateCategoryTotals,
-} from '@/lib/utils';
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/chart';
+import useFinanceStore from '@/store/useFinanceStore';
+import { formatCurrency, getMonthName, getMonthlyData } from '@/lib/utils';
 
 export default function MonthlyExpensesChart() {
   const { transactions, loading, error, initializeData } = useFinanceStore();
@@ -65,28 +57,15 @@ export default function MonthlyExpensesChart() {
     });
   }
 
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="bg-background border rounded-lg shadow-lg p-3">
-          <p className="font-medium">{`${label} ${data.year}`}</p>
-          <p className="text-primary font-semibold">
-            {`Expenses: ${formatCurrency(data.expenses)}`}
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {`${data.transactionCount} transaction${
-              data.transactionCount !== 1 ? 's' : ''
-            }`}
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
-
-  const maxExpense = Math.max(...months.map(m => m.expenses));
   const hasData = months.some(m => m.expenses > 0);
+
+  // Chart configuration for shadcn/ui
+  const chartConfig = {
+    expenses: {
+      label: 'Monthly Expenses',
+      color: 'hsl(var(--chart-1))',
+    },
+  };
 
   return (
     <Card>
@@ -98,35 +77,23 @@ export default function MonthlyExpensesChart() {
       </CardHeader>
       <CardContent>
         {hasData ? (
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart
-              data={months}
-              margin={{ top: 10, right: 10, left: 0, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+          <ChartContainer config={chartConfig}>
+            <BarChart accessibilityLayer data={months}>
+              <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="month"
-                className="text-sm"
-                tick={{ fontSize: 12 }}
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={value => value.slice(0, 3)}
               />
-              <YAxis
-                className="text-sm"
-                tick={{ fontSize: 12 }}
-                tickFormatter={value =>
-                  value >= 1000
-                    ? `$${(value / 1000).toFixed(value % 1000 === 0 ? 0 : 1)}k`
-                    : `$${value}`
-                }
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideLabel />}
               />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar
-                dataKey="expenses"
-                fill="#8884d8"
-                radius={[4, 4, 0, 0]}
-                className="hover:opacity-80"
-              />
+              <Bar dataKey="expenses" fill="var(--chart-1)" radius={8} />
             </BarChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         ) : (
           <div className="flex items-center justify-center h-[300px] text-muted-foreground">
             <div className="text-center">

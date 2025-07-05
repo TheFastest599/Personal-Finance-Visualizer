@@ -6,6 +6,12 @@ import TransactionForm from '@/components/TransactionForm';
 import TransactionList from '@/components/TransactionList';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Plus } from 'lucide-react';
 
 export default function Transactions() {
@@ -46,39 +52,37 @@ export default function Transactions() {
             className="bg-blue-600 hover:bg-blue-700 text-white"
           >
             <Plus className="w-4 h-4 mr-2" />
-            Add Transaction
+            Add
           </Button>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Transaction Form */}
-          <Card className={`${showForm ? 'lg:col-span-1' : 'hidden'}`}>
-            <CardHeader>
-              <CardTitle>
+        {/* Transaction List - Full Width */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Transactions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <TransactionList onEdit={handleEditTransaction} />
+          </CardContent>
+        </Card>
+
+        {/* Transaction Form Modal */}
+        <Dialog open={showForm} onOpenChange={setShowForm}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>
                 {editingTransaction
                   ? 'Edit Transaction'
                   : 'Add New Transaction'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <TransactionForm
-                transaction={editingTransaction}
-                onSuccess={handleCloseForm}
-                onCancel={handleCloseForm}
-              />
-            </CardContent>
-          </Card>
-
-          {/* Transaction List */}
-          <Card className={`${showForm ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
-            <CardHeader>
-              <CardTitle>Recent Transactions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <TransactionList onEdit={handleEditTransaction} />
-            </CardContent>
-          </Card>
-        </div>
+              </DialogTitle>
+            </DialogHeader>
+            <TransactionForm
+              transaction={editingTransaction}
+              onSuccess={handleCloseForm}
+              onCancel={handleCloseForm}
+            />
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

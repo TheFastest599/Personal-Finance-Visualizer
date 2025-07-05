@@ -282,7 +282,7 @@ export default function SpendingInsights() {
           AI-powered insights about your spending patterns and trends
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="max-h-[35vh] overflow-y-auto">
         {insights.length > 0 ? (
           <div className="space-y-4">
             {insights.slice(0, 6).map((insight, index) => {

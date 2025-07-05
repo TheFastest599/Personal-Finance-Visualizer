@@ -74,32 +74,34 @@ export default function TransactionList({ onEdit }) {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-h-[60vh] overflow-y-auto">
       {sortedTransactions.map(transaction => (
         <Card
           key={transaction.id}
           className="hover:shadow-md transition-shadow"
         >
-          <CardContent className="p-4">
-            <div className="flex justify-between items-start">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <h3 className="font-semibold text-lg">
+          <CardContent className=" px-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                  <h3 className="font-semibold text-base sm:text-lg truncate">
                     {transaction.description}
                   </h3>
-                  <Badge variant="secondary" className="text-xs">
+                  <Badge variant="secondary" className="text-xs w-fit">
                     {transaction.category}
                   </Badge>
                 </div>
                 <div className="flex items-center gap-4 text-sm text-gray-600">
                   <div className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
-                    {formatDate(transaction.date)}
+                    <span className="text-xs sm:text-sm">
+                      {formatDate(transaction.date)}
+                    </span>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-green-600">
+              <div className="flex flex-row sm:flex-col sm:items-end justify-between sm:justify-start gap-2">
+                <span className="text-xl sm:text-2xl font-bold text-green-600">
                   {formatCurrency(transaction.amount)}
                 </span>
                 <div className="flex gap-1">
@@ -107,7 +109,7 @@ export default function TransactionList({ onEdit }) {
                     variant="ghost"
                     size="sm"
                     onClick={() => onEdit && onEdit(transaction)}
-                    className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                    className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-2"
                   >
                     <Edit2 className="w-4 h-4" />
                   </Button>
@@ -115,7 +117,7 @@ export default function TransactionList({ onEdit }) {
                     variant="ghost"
                     size="sm"
                     onClick={() => handleDelete(transaction.id)}
-                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                    className="text-red-600 hover:text-red-700 hover:bg-red-50 p-2"
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>

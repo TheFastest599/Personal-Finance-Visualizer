@@ -1,14 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  Legend,
-} from 'recharts';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import {
   Card,
   CardContent,
@@ -16,6 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/chart';
 import useFinanceStore from '@/store/useFinanceStore';
 import {
   formatCurrency,
@@ -41,11 +39,20 @@ export default function CategoryPieChart() {
     .map(([category, amount], index) => ({
       name: category,
       value: amount,
-      color: getColorForCategory(category, index),
+      fill: getColorForCategory(category, index),
     }))
     .sort((a, b) => b.value - a.value);
 
   const total = data.reduce((sum, item) => sum + item.value, 0);
+
+  // Create chart config for shadcn/ui
+  const chartConfig = data.reduce((config, item, index) => {
+    config[item.name] = {
+      label: item.name,
+      color: item.fill,
+    };
+    return config;
+  }, {});
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -57,7 +64,7 @@ export default function CategoryPieChart() {
           <div className="flex items-center gap-2 mb-2">
             <div
               className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: data.payload.color }}
+              style={{ backgroundColor: data.payload.fill }}
             />
             <p className="font-medium">{data.payload.name}</p>
           </div>
@@ -73,20 +80,6 @@ export default function CategoryPieChart() {
     return null;
   };
 
-  const CustomLegend = ({ payload }) => (
-    <div className="grid grid-cols-2 gap-2 mt-4">
-      {payload.map((entry, index) => (
-        <div key={index} className="flex items-center gap-2 text-sm">
-          <div
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: entry.color }}
-          />
-          <span className="truncate">{entry.value}</span>
-        </div>
-      ))}
-    </div>
-  );
-
   const hasData = data.length > 0;
 
   return (
@@ -100,7 +93,10 @@ export default function CategoryPieChart() {
       <CardContent>
         {hasData ? (
           <>
-            <ResponsiveContainer width="100%" height={300}>
+            <ChartContainer
+              config={chartConfig}
+              className="mx-auto aspect-square max-h-[300px]"
+            >
               <PieChart>
                 <Pie
                   data={data}
@@ -112,12 +108,15 @@ export default function CategoryPieChart() {
                   labelLine={false}
                 >
                   {data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
                 </Pie>
-                <Tooltip content={<CustomTooltip />} />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
               </PieChart>
-            </ResponsiveContainer>
+            </ChartContainer>
 
             <div className="mt-6 ">
               <h4 className="text-sm font-medium mb-3">Category Breakdown</h4>
@@ -133,7 +132,7 @@ export default function CategoryPieChart() {
                       <div className="flex items-center gap-2">
                         <div
                           className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: item.color }}
+                          style={{ backgroundColor: item.fill }}
                         />
                         <span>{item.name}</span>
                       </div>

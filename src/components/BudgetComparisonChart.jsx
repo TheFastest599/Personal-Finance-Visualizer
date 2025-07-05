@@ -1,16 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
 import {
   Card,
   CardContent,
@@ -18,6 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/chart';
 import useFinanceStore from '@/store/useFinanceStore';
 import {
   formatCurrency,
@@ -71,50 +67,19 @@ export default function BudgetComparisonChart() {
     ),
   }));
 
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="bg-background border rounded-lg shadow-lg p-3">
-          <p className="font-medium mb-2">{label}</p>
-          <div className="space-y-1">
-            <p className="text-sm">
-              <span className="text-blue-600">Budget: </span>
-              <span className="font-semibold">
-                {formatCurrency(data.budget)}
-              </span>
-            </p>
-            <p className="text-sm">
-              <span className="text-green-600">Actual: </span>
-              <span className="font-semibold">
-                {formatCurrency(data.actual)}
-              </span>
-            </p>
-            <p className="text-sm">
-              {data.overBudget > 0 ? (
-                <>
-                  <span className="text-red-600">Over Budget: </span>
-                  <span className="font-semibold text-red-600">
-                    {formatCurrency(data.overBudget)}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="text-green-600">Under Budget: </span>
-                  <span className="font-semibold text-green-600">
-                    {formatCurrency(data.remaining)}
-                  </span>
-                </>
-              )}
-            </p>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
-
   const hasData = chartData.length > 0;
+
+  // Chart configuration for shadcn/ui
+  const chartConfig = {
+    budget: {
+      label: 'Budget',
+      color: 'var(--chart-1)',
+    },
+    actual: {
+      label: 'Actual',
+      color: 'var(--chart-2)',
+    },
+  };
 
   return (
     <Card>
@@ -130,43 +95,24 @@ export default function BudgetComparisonChart() {
       </CardHeader>
       <CardContent>
         {hasData ? (
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart
-              data={chartData}
-              margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+          <ChartContainer config={chartConfig}>
+            <BarChart accessibilityLayer data={chartData}>
+              <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="category"
-                className="text-sm"
-                tick={{ fontSize: 12 }}
-                angle={-45}
-                textAnchor="end"
-                height={80}
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={value => value.slice(0, 8)}
               />
-              <YAxis
-                className="text-sm"
-                tick={{ fontSize: 12 }}
-                tickFormatter={value => `$${value}`}
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="dashed" />}
               />
-              <Tooltip content={<CustomTooltip />} />
-              <Legend />
-              <Bar
-                dataKey="budget"
-                name="Budget"
-                fill="#3b82f6"
-                radius={[4, 4, 0, 0]}
-                opacity={0.8}
-              />
-              <Bar
-                dataKey="actual"
-                name="Actual"
-                fill="#10b981"
-                radius={[4, 4, 0, 0]}
-                opacity={0.8}
-              />
+              <Bar dataKey="budget" fill="var(--color-budget)" radius={4} />
+              <Bar dataKey="actual" fill="var(--color-actual)" radius={4} />
             </BarChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         ) : (
           <div className="flex items-center justify-center h-[400px] text-muted-foreground">
             <div className="text-center">

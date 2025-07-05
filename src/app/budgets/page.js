@@ -22,24 +22,10 @@ export default function Budgets() {
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Budget Manager */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Monthly Budgets</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <BudgetManager />
-            </CardContent>
-          </Card>
+          <BudgetManager />
 
           {/* Budget Comparison Chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Budget vs Actual</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <BudgetComparisonChart />
-            </CardContent>
-          </Card>
+          <BudgetComparisonChart />
         </div>
       </div>
     </div>

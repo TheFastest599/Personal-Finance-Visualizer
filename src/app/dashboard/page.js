@@ -29,23 +29,9 @@ export default function Dashboard() {
 
         {/* Charts Section */}
         <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          <Card>
-            <CardHeader>
-              <CardTitle>Monthly Expenses</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <MonthlyExpensesChart />
-            </CardContent>
-          </Card>
+          <MonthlyExpensesChart />
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Spending by Category</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CategoryPieChart />
-            </CardContent>
-          </Card>
+          <CategoryPieChart />
         </div>
 
         {/* Insights Section */}
